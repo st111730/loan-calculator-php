@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  /* Палитра фона страницы — единая точка правки */
+  --bg-top: 2 6 23;    /* slate-950 */
+  --bg-mid: 15 23 42;  /* slate-900 */
+  /* Акцент и цвета трека ползунков — единая точка правки */
+  --slider-fill: 37 99 235; /* blue-600 */
+  --slider-track: 51 65 85; /* slate-700 */
+}
+
+body {
+  @apply text-slate-100 antialiased;
+  background: linear-gradient(160deg, rgb(var(--bg-top)) 0%, rgb(var(--bg-mid)) 55%, rgb(var(--bg-top)) 100%);
+  background-attachment: fixed;
+}
+
+/* Бегунок ползунка в цвете заливки трека */
+.range-filled::-webkit-slider-thumb {
+  appearance: none;
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 9999px;
+  background: rgb(var(--slider-fill));
+  border: 2px solid rgb(15 23 42); /* slate-900 — в цвет карточки */
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  cursor: pointer;
+}
+
+.range-filled::-moz-range-thumb {
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 9999px;
+  background: rgb(var(--slider-fill));
+  border: 2px solid rgb(15 23 42);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  cursor: pointer;
+}

@@ -1,0 +1,6 @@
+node_modules
+dist
+server
+docker-compose*.yml
+.env
+.zcode
