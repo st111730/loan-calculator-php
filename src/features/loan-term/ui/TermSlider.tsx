@@ -34,7 +34,7 @@ export function TermSlider({ value, min, max, error, onChange }: TermSliderProps
 
   return (
     <div>
-      <label htmlFor={id} className="mb-1 block text-sm font-medium text-slate-300">
+      <label htmlFor={id} className="mb-2 block text-[13px] font-medium uppercase tracking-[0.08em] text-muted">
         Срок кредита
       </label>
       <div className="flex flex-col gap-3">
@@ -50,9 +50,9 @@ export function TermSlider({ value, min, max, error, onChange }: TermSliderProps
               if (!Number.isNaN(parsed)) onChange(parsed);
               else if (e.target.value.trim() === "") onChange(0);
             }}
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 pr-14 text-right font-semibold focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+            className="h-14 w-full rounded-none border-b-2 border-hairline bg-transparent px-1 pr-14 text-right text-lg font-semibold text-ink tabular-nums outline-none transition-colors hover:border-ink focus:border-accent"
           />
-          <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-slate-400">
+          <span className="pointer-events-none absolute inset-y-0 right-1 flex items-center text-xs text-muted">
             мес
           </span>
         </div>
@@ -67,14 +67,14 @@ export function TermSlider({ value, min, max, error, onChange }: TermSliderProps
             background: `linear-gradient(to right, rgb(var(--slider-fill)) ${fillPercent}%, rgb(var(--slider-track)) ${fillPercent}%)`,
           }}
           data-fill-percent={fillPercent}
-          className="range-filled h-2 w-full cursor-pointer appearance-none rounded-full accent-blue-600"
+          className="range-filled h-2 w-full cursor-pointer appearance-none rounded-full"
           aria-label="Срок кредита слайдером"
         />
       </div>
-      <p className="mt-1 text-xs text-slate-400">
+      <p className="mt-2 text-xs text-muted">
         От {min} до {max} мес ({formatTerm(value)})
       </p>
-      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-1 text-xs text-error">{error}</p>}
     </div>
   );
 }

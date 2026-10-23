@@ -62,12 +62,15 @@ export function LoanCalculator() {
   return (
     <section className="grid gap-6 lg:grid-cols-[1fr_360px]">
       <form
-        className="space-y-6 rounded-2xl bg-slate-900 p-6 shadow-lg shadow-black/20 ring-1 ring-white/10"
+        className="space-y-6 rounded-2xl bg-[color:var(--color-surface)] p-6 shadow-lg shadow-[color:var(--shadow-color)] ring-1 ring-[color:var(--color-hairline)]"
         onSubmit={(e) => e.preventDefault()}
         noValidate
       >
         <div>
-          <label htmlFor="fullName" className="mb-1 block text-sm font-medium text-slate-300">
+          <label
+            htmlFor="fullName"
+            className="mb-1 block text-sm font-medium uppercase tracking-[0.08em] text-[color:var(--color-muted)]"
+          >
             ФИО
           </label>
           <input
@@ -78,10 +81,10 @@ export function LoanCalculator() {
             onBlur={() => setTouched("fullName")}
             onChange={(e) => setField("fullName", e.target.value)}
             placeholder="Иванов Иван Иванович"
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+            className="w-full rounded-xl border border-[color:var(--color-hairline)] bg-[color:var(--color-surface)] px-3 py-2 text-[color:var(--color-text)] focus:border-[color:var(--color-text)] focus:outline-none"
           />
           {showError("fullName") && (
-            <p className="mt-1 text-xs text-red-400">{errors.fullName}</p>
+            <p className="mt-1 text-xs text-[color:var(--color-error)]">{errors.fullName}</p>
           )}
         </div>
 
@@ -108,7 +111,7 @@ export function LoanCalculator() {
         />
 
         <div>
-          <h2 className="mb-2 text-sm font-medium text-slate-300">Тип кредита</h2>
+          <h2 className="mb-2 text-sm font-medium text-[color:var(--color-text)]">Тип кредита</h2>
           <LoanTypeChips
             value={draft.loanType}
             onChange={(loanType) => {
@@ -122,7 +125,10 @@ export function LoanCalculator() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="income" className="mb-1 block text-sm font-medium text-slate-300">
+            <label
+              htmlFor="income"
+              className="mb-1 block text-sm font-medium uppercase tracking-[0.08em] text-[color:var(--color-muted)]"
+            >
               Ежемесячный доход, ₽
             </label>
             <input
@@ -137,13 +143,13 @@ export function LoanCalculator() {
                 setField("monthlyIncome", Number.isNaN(parsed) ? 0 : parsed);
               }}
               placeholder="100 000"
-              className="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-right focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              className="w-full rounded-xl border border-[color:var(--color-hairline)] bg-[color:var(--color-surface)] px-3 py-2 text-right text-[color:var(--color-text)] focus:border-[color:var(--color-text)] focus:outline-none"
             />
             {showError("monthlyIncome") && (
-              <p className="mt-1 text-xs text-red-400">{errors.monthlyIncome}</p>
+              <p className="mt-1 text-xs text-[color:var(--color-error)]">{errors.monthlyIncome}</p>
             )}
             {touched.monthlyIncome && draft.monthlyIncome > 0 && !incomeSufficient && (
-              <p className="mt-1 text-xs text-amber-400">
+              <p className="mt-1 text-xs text-[color:var(--color-warning)]">
                 Доход недостаточен: нужно не менее {formatCurrency(result.requiredIncome)}
               </p>
             )}
@@ -151,33 +157,35 @@ export function LoanCalculator() {
         </div>
 
         <div className="space-y-3">
-          <label className="flex items-start gap-3 text-sm text-slate-300">
+          <label className="flex items-start gap-3 text-sm text-[color:var(--color-text)]">
             <input
               type="checkbox"
               checked={draft.hasCitizenship}
               onChange={(e) => setField("hasCitizenship", e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded border-slate-600 accent-blue-500"
+              className="mt-0.5 h-4 w-4 rounded border-[color:var(--color-hairline)] accent-[color:var(--color-text)]"
             />
             <span>
               Я являюсь гражданином РФ
               {showError("hasCitizenship") && (
-                <span className="block text-xs text-red-400">{errors.hasCitizenship}</span>
+                <span className="block text-xs text-[color:var(--color-error)]">
+                  {errors.hasCitizenship}
+                </span>
               )}
             </span>
           </label>
 
-          <label className="flex items-start gap-3 text-sm text-slate-300">
+          <label className="flex items-start gap-3 text-sm text-[color:var(--color-text)]">
             <input
               type="checkbox"
               checked={draft.consentGiven}
               onChange={(e) => setField("consentGiven", e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded border-slate-600 accent-blue-500"
+              className="mt-0.5 h-4 w-4 rounded border-[color:var(--color-hairline)] accent-[color:var(--color-text)]"
             />
             <span>
               Я даю согласие на обработку персональных данных в соответствии с{" "}
               <a
                 href="/privacy-policy.pdf"
-                className="text-blue-400 underline hover:text-blue-300"
+                className="underline hover:opacity-80"
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -185,48 +193,53 @@ export function LoanCalculator() {
               </a>{" "}
               (152-ФЗ)
               {showError("consentGiven") && (
-                <span className="block text-xs text-red-400">{errors.consentGiven}</span>
+                <span className="block text-xs text-[color:var(--color-error)]">
+                  {errors.consentGiven}
+                </span>
               )}
             </span>
           </label>
         </div>
       </form>
 
-      <aside className="h-fit space-y-4 rounded-2xl bg-slate-800 p-6 text-white shadow-lg shadow-black/20 ring-1 ring-white/10">
-        <h2 className="text-sm font-medium uppercase tracking-wide text-slate-400">
+      <aside className="h-fit space-y-4 rounded-2xl bg-[color:var(--color-surface)] p-6 text-[color:var(--color-text)] shadow-lg shadow-[color:var(--shadow-color)] ring-1 ring-[color:var(--color-hairline)]">
+        <h2 className="text-sm font-medium uppercase tracking-[0.08em] text-[color:var(--color-muted)]">
           Расчёт по продукту «{product.title}»
         </h2>
 
         <div>
-          <p className="text-sm text-slate-400">Ежемесячный платёж</p>
-          <p className="text-3xl font-bold" data-testid="monthly-payment">
+          <p className="text-sm text-[color:var(--color-muted)]">Ежемесячный платёж</p>
+          <p
+            className="tabular-nums text-3xl font-bold"
+            data-testid="monthly-payment"
+          >
             {formatCurrency(result.monthlyPayment)}
           </p>
         </div>
 
-        <dl className="space-y-2 text-sm">
+        <dl className="tabular-nums space-y-2 text-sm">
           <div className="flex justify-between">
-            <dt className="text-slate-400">Количество платежей</dt>
+            <dt className="text-[color:var(--color-muted)]">Количество платежей</dt>
             <dd className="font-semibold">{formatNumber(result.paymentsCount)}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-slate-400">Ставка</dt>
+            <dt className="text-[color:var(--color-muted)]">Ставка</dt>
             <dd className="font-semibold">
               {(product.annualRate * 100).toLocaleString("ru-RU")}%
             </dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-slate-400">Требуемая зарплата</dt>
+            <dt className="text-[color:var(--color-muted)]">Требуемая зарплата</dt>
             <dd className="font-semibold" data-testid="required-income">
               от {formatCurrency(result.requiredIncome)}
             </dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-slate-400">Общая сумма выплат</dt>
+            <dt className="text-[color:var(--color-muted)]">Общая сумма выплат</dt>
             <dd className="font-semibold">{formatCurrency(result.totalRepaid)}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-slate-400">Переплата</dt>
+            <dt className="text-[color:var(--color-muted)]">Переплата</dt>
             <dd className="font-semibold">{formatCurrency(result.totalInterest)}</dd>
           </div>
         </dl>
@@ -236,22 +249,31 @@ export function LoanCalculator() {
           onClick={handleSubmit}
         />
         {!isValid && (
-          <p className="text-center text-xs text-slate-400">
+          <p className="text-center text-xs text-[color:var(--color-muted)]">
             Заполните все поля и подтвердите согласия, чтобы отправить заявку
           </p>
         )}
         {pushStatus === "submitting" && (
-          <p className="text-center text-xs text-slate-400" data-testid="push-status">
+          <p
+            className="text-center text-xs text-[color:var(--color-muted)]"
+            data-testid="push-status"
+          >
             Отправляем заявку…
           </p>
         )}
         {pushStatus === "success" && (
-          <div className="rounded-lg bg-emerald-500/15 p-3 text-center text-sm text-emerald-300" data-testid="push-status">
+          <div
+            className="bg-[color-mix(in_srgb,var(--color-success)_15%,transparent)] rounded-lg p-3 text-center text-sm text-[color:var(--color-success)]"
+            data-testid="push-status"
+          >
             Заявка на «{product.title}» принята. Мы свяжемся с вами после рассмотрения.
           </div>
         )}
         {pushStatus === "error" && (
-          <div className="rounded-lg bg-red-500/15 p-3 text-center text-sm text-red-300" data-testid="push-status">
+          <div
+            className="bg-[color-mix(in_srgb,var(--color-error)_15%,transparent)] rounded-lg p-3 text-center text-sm text-[color:var(--color-error)]"
+            data-testid="push-status"
+          >
             {pushError}
             <button type="button" onClick={resetPush} className="ml-2 underline">
               Повторить

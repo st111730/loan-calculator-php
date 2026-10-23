@@ -18,14 +18,18 @@ export function LoanTypeChips({ value, onChange }: LoanTypeChipsProps) {
             role="radio"
             aria-checked={selected}
             onClick={() => onChange(id)}
-            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+            className={`rounded-none border px-4 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               selected
-                ? "border-blue-600 bg-blue-600 text-white hover:bg-blue-500"
-                : "border-slate-600 bg-slate-800 text-slate-300 hover:border-blue-400"
+                ? // Активный чип — инверсия: жёлтый фон, чёрный текст (§4)
+                  "border-accent bg-accent font-semibold text-ink-on-accent hover:bg-accent-pressed"
+                : // Неактивный: рамка Hairline; hover светлит её до Text, но не в жёлтый (§6)
+                  "border-hairline bg-surface font-medium text-ink hover:border-ink"
             }`}
           >
             {product.title}
-            <span className={`ml-2 text-xs ${selected ? "text-blue-100" : "text-slate-400"}`}>
+            <span
+              className={`ml-2 text-xs font-normal ${selected ? "text-ink-on-accent opacity-70" : "text-muted"}`}
+            >
               {(product.annualRate * 100).toLocaleString("ru-RU")}%
             </span>
           </button>

@@ -4,18 +4,41 @@
 
 :root {
   color-scheme: dark;
-  /* Палитра фона страницы — единая точка правки */
-  --bg-top: 2 6 23;    /* slate-950 */
-  --bg-mid: 15 23 42;  /* slate-900 */
-  /* Акцент и цвета трека ползунков — единая точка правки */
-  --slider-fill: 37 99 235; /* blue-600 */
-  --slider-track: 51 65 85; /* slate-700 */
+
+  /* Дизайн-система «High-Contrast Editorial» (docs/design-system.md §2) — единая точка правки цветов */
+
+  /* Основные токены */
+  --color-base: #0A0A0A;    /* Фон страницы */
+  --color-surface: #1A1A1A; /* Поверхность: карточка формы, панель результата, инпуты */
+  --color-accent: #FFD700;  /* Единственный акцент: только действия и ключевые цифры */
+  --color-text: #F5F5F5;    /* Основной текст */
+  --color-muted: #888888;   /* Вторичный текст: лейблы полей, подписи-пояснения */
+
+  /* Производные токены */
+  --color-hairline: #2A2A2A;        /* Границы инпутов и разделители */
+  --color-accent-pressed: #E6C200;  /* Hover/pressed жёлтой кнопки */
+  --color-ink-on-accent: #0A0A0A;   /* Текст и иконки на жёлтом фоне */
+  --shadow-color: rgb(0 0 0 / 0.5); /* Тени только крупным поверхностям (#000, opacity 40–60%) */
+
+  /* Статусные цвета — вне палитры: жёлтым ошибки/предупреждения не подсвечивать */
+  --color-error: #FF5252;   /* Ошибка (красный) */
+  --color-success: #4ADE80; /* Успех (зелёный) */
+  --color-warning: #FBBF24; /* Предупреждение о доходе (amber-400) — не совмещать с акцентом */
+
+  /* Шрифты (§3) */
+  --font-display: 'Unbounded', system-ui, sans-serif; /* Заголовки, крупная цифра платежа */
+  --font-text: 'Golos Text', system-ui, sans-serif;   /* Основной текст, инпуты, лейблы */
+
+  /* Палитра трека ползунков (RGB-триплеты) — единая точка правки; значения по §2:
+     заливка и бегунок — Accent, трек — Hairline. Формат менять нельзя */
+  --slider-fill: 255 215 0; /* #FFD700 — accent */
+  --slider-track: 42 42 42; /* #2A2A2A — hairline */
 }
 
 body {
   @apply text-slate-100 antialiased;
-  background: linear-gradient(160deg, rgb(var(--bg-top)) 0%, rgb(var(--bg-mid)) 55%, rgb(var(--bg-top)) 100%);
-  background-attachment: fixed;
+  background: var(--color-base);
+  font-family: var(--font-text);
 }
 
 /* Бегунок ползунка в цвете заливки трека */
@@ -25,7 +48,7 @@ body {
   width: 1.25rem;
   border-radius: 9999px;
   background: rgb(var(--slider-fill));
-  border: 2px solid rgb(15 23 42); /* slate-900 — в цвет карточки */
+  border: 2px solid rgb(10 10 10); /* base — в цвет фона страницы */
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
   cursor: pointer;
 }
@@ -35,7 +58,7 @@ body {
   width: 1.25rem;
   border-radius: 9999px;
   background: rgb(var(--slider-fill));
-  border: 2px solid rgb(15 23 42);
+  border: 2px solid rgb(10 10 10);
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
   cursor: pointer;
 }
